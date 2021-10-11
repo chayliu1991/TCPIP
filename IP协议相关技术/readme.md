@@ -164,3 +164,41 @@ ICMPv6中从类型133至类型137的消息叫做邻居探索消息。 这种邻�
 
 ![](./img/ip_auto_setting.png)
 
+# DHCP  
+
+## DHCP实现即插即用  
+
+为了实现自动设置IP地址、 统一管理IP地址分配， 就产生了DHCP（Dynamic Host Configuration Protocol） 协议。 有了DHCP， 计算机只要连接到网络， 就可以进行TCP/IP通信。 也就是说， DHCP让即插即用（指只要物理上一连通， 无需专门设置就可以直接使用这个物理设备。 ） 变得可能。 而DHCP不仅在IPv4
+中， 在IPv6中也可以使用。  
+
+![](./img/dhcp.png)
+
+使用DHCP之前， 首先要架设一台DHCP服务器（很多时候用该网段的路由器充当DHCP服务器。 ） 。 然后将DHCP所要分配的IP地址设置到服务器上。 此外， 还需要将相应的子网掩码、 路由控制信息以及DNS服务器的地址等设置到服务器上。  
+
+![](./img/dhcp_working.png)
+
+DHCP在分配IP地址有两种方法。 一种是由DHCP服务器在特定的IP地址中自动选出一个进行分配。 另一种方法是针对MAC地址分配一个固定的IP地址。 而且这两种方法可以并用。  
+
+为了检查所要分配的IP地址以及已经分配了的IP地址是否可用， DHCP服务器或DHCP客户端必须具备以下功能：
+
+- DHCP服务器：在分配IP地址前发送ICMP回送请求包， 确认没有返回应答
+- DHCP客户端：针对从DHCP那里获得的IP地址发送ARP请求包， 确认没有返回应答
+
+##　DHCP中继代理  
+
+有了DHCP中继代理以后， 对不同网段的IP地址分配也可以由一个DHCP服务器统一进行管理和运维。  
+
+这种方法使得在每个网段架设一个DHCP服务器被取代， 只需在每个网段设置一个DHCP中继代理即可（DHCP中继代理多数为路由器， 不过也有在主机中安装某些软件得以实现的情况。 ） 。 它可以设置DHCP服务器的IP地址， 从而可以在DHCP服务器上为每个网段注册IP地址的分配范围。  
+
+DHCP客户端会向DHCP中继代理发送DHCP请求包， 而DHCP中继代理在收到这个广播包以后再以单播的形式发给DHCP服务器。 服务器端收到该包以后再向DHCP中继代理返回应答， 并由DHCP中继代理将此包转发给DHCP客户端。 由此， DHCP服务器即使不在同一个链路上也可以实现统一分配和管理IP地址。
+
+![](./img/dhcp_proxy.png) 
+
+# NAT  
+
+## NAT定义
+NAT（Network Address Translator） 是用于在本地网络中使用私有地址， 在连接互联网时转而使用全局IP地址的技术。 除转换IP地址外， 还出现了可以转换TCP、 UDP端口号的NAPT（Network Address Ports Translator） 技术， 由此可以实现用一个全局IP地址与多个主机的通信（通常人们提到的NAT， 多半是指 NAPT。 NAPT也叫做IP伪装或Multi NAT。 ） 。    
+
+![](./img/nat.png)
+
+NAT（NAPT） 实际上是为正在面临地址枯竭的IPv4而开发的技术。 不过， 在IPv6中为了提高网络安全也在使用NAT， 在IPv4和IPv6之间的相互通信当中常常使用NAT-PT。
