@@ -228,24 +228,41 @@ JavaScript还可以用于操作HTML或XML的逻辑结构（DOM， Document Objec
 
 ### CGI  
 
+CGI（Common Gateway Interface） 是Web服务器调用外部程序时所使用的一种服务端应用的规范。  
 
+一般的Web通信中， 只是按照客户端请求将保存在Web服务器硬盘中的数据转发而已。 这种情况下客户端每次收获的信息也是同样（静态） 的内容。 而引入CGI以后客户端请求会触发Web服务器端运行另一个程序， 客户端所输入的数据也会传给这个外部程序。 该程序运行结束后会将生成的HTML和其他数据再返回给客户端。  
 
+### Cookie  
 
+Web应用中为了获取用户信息使用一个叫做Cookie的机制。 Web服务器用Cookie在客户端保存信息。 Cookie常被用于保存登录信息或网络购物中放入购物车的商品信息。    
 
+# 网络管理  
 
+## SNMP  
 
+![](./img/network_manage.png)
 
+在TCP/IP的网络管理中可以使用SNMP（Simple Network Management Protocol） 收集必要的信息。 它是一款基于UDP/IP的协议。  
 
+SNMP中管理端叫做管理器（Manager， 网络监控终端） ， 被管理端叫做代理（路由器、 交换机等）（SNMPv3中管理器和代理都叫做实体（Entity） 。 ） 。 决定管理器与代理之间的通信中所要交互信息的正是SNMP。
 
+SNMPv3， 不仅集合了所有SNMP的功能于同一个版本， 定义了个别的功能模块（Component） ， 并可以结合各种不同版本进行通信。SNMPv3中将“消息处理”、 “用户安全”和“访问控制”三部分分开考虑， 可以为每一个部选择各自必要的机制。    
 
+消息处理中如果选择了SNMPv2的模型， 那么会进行以下8种操作。 它们分别是： 查询请求， 上次要求的下一个信息的查询请求（GetNextRequest-PDU） 、 应答、 设置请求、 批量查询请求（GetBulkRequestPDU） 、 向其他管理器发送信息通知（InformRequest-PDU） 、 事件通知、 用管理系统定义的命令（ReportPDU） 等操作。  
 
+![](./img/snmp.png)
 
+通常， 根据查询请求和应答可以定期检查设备的运行动作， 根据设置请求可以修改设备的参数。 SNMP的处理可以分为从设备读取数据和向设备写入数据两种。 它们采用Fetch和Store模式。   
 
+如果出于某种原因网络设备的状况发生变化， 将这个变化通知给SNMP管理器时就可以使用Trap。 有了Trap， 即使没有管理器到代理的请求， 也能在设备发生变化时收到从代理发来的通知。  
 
+## MIB  
 
+SNMP中交互的信息是MIB（Management Information Base） 。 MIB是在树形结构的数据库中为每个项目附加编号的一种信息结构。  
 
+SNMP访问MIB信息时使用数字序列。 这些数字序列各自都有其易于理解的名字。 MIB分为标准MIB（有时也叫私有MIB。 ） （MIB、 MIB-II、 FDDI-MIB等） 和各个提供商提供的扩展MIB。 不论是哪种类型的MIB都通过SMI（Structure of Management Information） 定义， 其中SMI使用ISO 提出的ASN.1方法。  
 
+MIB相当于SNMP的表示层， 它是一种能够在网络上传输的结构。 SNMP中可以将MIB值写入代理， 也可以从代理中读取MIB值。 通过这些操作可以收集冲突的次数和流量统计等信息， 可以修改接口的IP地址，还可以进行路由器的启停、 设备的启动和关闭等处理。  
 
+![](./img/mib.png)  
 
-
-  
