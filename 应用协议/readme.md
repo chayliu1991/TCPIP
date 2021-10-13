@@ -226,6 +226,10 @@ JavaScript还可以用于操作HTML或XML的逻辑结构（DOM， Document Objec
 
 ![](./img/javascript_cgi.png)
 
+### CGI  
+
+
+
 
 
 
