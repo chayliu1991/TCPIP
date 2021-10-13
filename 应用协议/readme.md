@@ -98,6 +98,133 @@ FTP 应答信息：
 
 # 电子邮件  
 
+![](./img/email.png)
+
+## 电子邮件的工作机制  
+
+提供电子邮件服务的协议叫做SMTP（Simple Mail Transfer Protocol） 。 SMTP为了实现高效发送邮件内容， 在其传输层使用了TCP协议。  
+
+早期电子邮件是在发送端主机与接收端主机之间直接建立TCP连接进行邮件传输。这种方法， 在提高电子邮件的可靠性传输上非常有效。 但是， 互联网应用逐渐变得越发复杂， 这种机制也将无法正常工作。 例如， 使用者的计算机时而关机时而开机的情况下， 只有发送端和接收端都处于插电并且开机的状态时才可能实现电子邮件的收发。     
+
+![](./img/early_email.png)
+
+为此， 在技术上改变了以往直接在发送端与接收端主机之间建立TCP连接的机制， 而引进了一种一直会连接电源的邮件服务器。 发送和接收端通过邮件服务器进行收发邮件。 接收端从邮件服务器接收邮件时使用POP3（Post Office Protocol） 协议。    
+
+![](./img/modern_email.png)
+
+电子邮件的机制由3部分组成， 它们分别是邮件地址， 数据格式以及发送协议。  
+
+## 邮件地址  
+
+使用电子邮件时需要拥有的地址叫做邮件地址。 它就相当于通信地址和姓名。 互联网中电子邮件地址的格式如下：名称@通信地址。  
+
+ ## MIME  
+
+电子邮件所能发送的数据类型已被扩展到MIME（Multipurpose Internet Mail Extensions， 广泛用于互联网并极大地扩展了数据格式， 还可以用于WWW和NetNews中。 ） ， 可以发送静态图像、 动画、 声音、 程序等各种形式的数据。      
+
+MIME基本上由首部和正文（数据） 两部分组成。 首部不能是空行， 因为一旦出现空行， 其后的部分将被视为正文（数据） 。 如果MIME首部的“Content-Type”中指定“Multipart/Mixed”， 并以“boundary=”后面字符作为分隔符（boundary=后面的字符串， 开头一定要写- -。 而且， 间隔符后面也一定要写- -。 ） ， 那么可以将多个MIME消息组合成为一个MIME消息。 这就叫做multipart。 即， 各个部分都由MIME首部和正文（数据） 组成。  
+
+“Content-Type”定义了紧随首部信息的数据类型。 以IP首部为例， 它就相当于协议字段。  
+
+![](./img/mime.png)
+
+![](./img/mime2.png)
+
+## SMTP  
+
+SMTP是发送电子邮件的协议。 它使用的是TCP的25号端口。 SMTP建立一个TCP连接以后， 在这个连接上进行控制和应答以及数据的发送。 客户端以文本的形式发出请求， 服务端返回一个3位数字的应答。每个指令和应答的最后都必须追加换行指令（CR、 LF） 。 
+
+SMTP 命令：
+
+![](./img/smtp_command.png) 
+
+![](./img/smtp.png)
+
+SMTP应答：
+
+![](./img/smtp_response.png)  
+
+## POP  
+
+![](./img/pop.png)
+
+SMTP的一个不利之处就在于它支持的是发送端主机的行为， 而不是根据接收端的请求发送邮件。为了解决这个问题， 就引入了POP协议。   
+
+![](./img/pop_working.png)
+
+POP与SMTP一样， 也是在其客户端与服务器之间通过建立一个TCP连接完成相应操作。  
+
+POP主要命令：
+
+![](./img/pop_command.png)
+
+![](./img/pop_command2.png)
+
+## IMAP  
+
+IMAP（Internet Message Access Protocol） 与POP类似， 也是接收电子邮件的协议。 在POP中邮件由客户端进行管理， 而在IMAP中邮件则由服务器进行管理。  
+
+使用IMAP时， 可以不必从服务器上下载所有的邮件也可以阅读。使用IMAP， 在服务器上保存和管理邮件信息， 就如同在自己本地客户端的某个闪存中管理自己的信息一样简单。     
+
+有了IMAP人们就可以通过个人电脑、 公司的电脑、 笔记本电脑以及智能手机等连接到IMAP服务器以后进行收发邮件。   
+
+# WWW  
+
+万维网（WWW， World Wide Web） 是将互联网中的信息以超文本（超文本用以显示文本及与文本相关的内容。 ） 形式展现的系统。 也叫做Web。   
+
+借助浏览器， 人们不需要考虑该信息保存在哪个服务器， 只需要轻轻点击鼠标就可以访问页面上的链接并打开相关信息。  
+
+![](./img/www.png)
+
+WWW定义了3个重要的概念， 它们分别是访问信息的手段与位置（URI， Uniform Resource Identifier） 、 信息的表现形式（HTML， HyperText Markup Language） 以及信息转发（HTTP， HyperText Transfer Protocol） 等操作。   
+
+## URI  
+
+URI是 Uniform Resource Identifier的缩写， 用于标识资源。 URI是一种可以用于WWW之外的高效的识别码， 它被用于主页地址、 电子邮件、 电话号码等各种组合中。   
+
+URL（ Uniform Resource Locator）常被人们用来表示互联网中资源（ 文件） 的具体位置。 但是URI不局限于标识互联网资源， 它可以作为所有资源的识别码。      
+
+相比URL狭义的概念， URI则是一个广义的概念。 因此， URI可以用于除了WWW之外的其他应用协议中。  
+
+URI所表示的组合叫方案（ Scheme） （schema是指具有体系的计划或方案。 ） 。 在众多URI的Scheme中WWW主要用其中的http和https表示Web页的位置和访问Web页的方法。   
+
+主要的URI方案：
+
+![](./img/uri_scheme.png)  
+
+## HTML  
+
+HTMP是记述Web页的一种语言（数据格式） 。 它可以指定浏览器中显示的文字、 文字的大小和颜色。此外， 不仅可以对图像或动画进行相关设置， 还可以设置音频内容。  
+
+HTML也可以说是WWW通用的数据表现协议。 即使是在异构的计算机上， 只要是可以用HTML展现的数据， 那么效果基本上是一致的。   
+
+## HTTP  
+
+HTTP中默认使用80端口。 它的工作机制， 首先是客户端向服务器的80端口建立一个TCP连接， 然后在这个TCP连接上进行请求和应答以及数据报文的发送。  
+
+![](./img/http_working.png)
+
+HTTP中常用的有两个版本， 一个HTTP1.0， 另一个是HTTP1.1。 在HTTP1.0中每一个命令和应答都会触发一次TCP连接的建立和断开。 而从HTTP1.1开始， 允许在一个TCP连接上发送多个命令和应答（这种方式也叫保持连接（keep-alive） 。 ） 。 由此， 大量地减少了TCP连接的建立和断开操作， 从而也提高了效率。  
+
+### HTTP的主要命令以及应答报文  
+
+HTTP的主要命令：
+
+![](./img/http_command.png)
+
+HTTP应答报文：
+
+![](./img/http_response.png)  
+
+## JavaScript、 CGI、 Cookie  
+
+### JavaScript  
+
+JavaScript是一种嵌入在HTML中的编程语言， 作为客户端程序可以运行于多种类型的浏览器中。 这些浏览器将嵌入JavaScript的HTML下载后， 其对应的JavaScript程序就可以在客户端得到执行。  
+
+JavaScript还可以用于操作HTML或XML的逻辑结构（DOM， Document Object Model） 以及动态显示Web页的内容和页面风格上。  
+
+![](./img/javascript_cgi.png)
 
 
 
@@ -114,11 +241,6 @@ FTP 应答信息：
 
 
 
-
-
-
-
-  
 
 
 
